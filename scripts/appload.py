@@ -34,7 +34,7 @@ def uploadFiles(ftp,files):
     
 
 if len(sys.argv)<5:
-    sys.exit('Usage: %s "keychain_service" "keychain_account" "server" "port" "path" [files]' % sys.argv[0])
+    sys.exit('Usage: %s "keychain service" "keychain account" "server" "port" "remote path" "file 1" "file 2" … "file n"' % sys.argv[0])
     
 params = sys.argv[1:]
 service = params.pop(0)
