@@ -9,6 +9,14 @@ Simple FTP upload with python with credentials in keychain. Overrides the files 
 
 		sudo pip install https://github.com/buscarini/appload/archive/master.zip
 
+## Upgrade
+
+	sudo pip install --upgrade https://github.com/buscarini/appload/archive/master.zip
+	
+
 ## Usage
 
-		appload "keychain_service" "keychain_account" "server" "port" "remote path" "file 1" "file 2" … "file n"
+		appload "keychain service" "username" "server" "port" "remote path" "file 1" "file 2" … "file n"
+		
+**"keychain service"** is just the name or identifier you want to use for this service. You can put anything you want there (like ).
+**"keychain account"** is the ftp username.

@@ -5,6 +5,14 @@ from ftplib import FTP
 import os
 import sys
 import keyring
+import getpass
+
+def askPassword():
+    password = None
+    while password == None or len(password)==0:
+        password = str(getpass.getpass("Please enter the password for service \""+service+"\" and account \""+account+"\": "))
+    keyring.set_password(service, account, password)
+    return password
 
 def uploadFiles(ftp,files):
     for file in files:
@@ -34,7 +42,7 @@ def uploadFiles(ftp,files):
     
 
 if len(sys.argv)<5:
-    sys.exit('Usage: %s "keychain service" "keychain account" "server" "port" "remote path" "file 1" "file 2" … "file n"' % sys.argv[0])
+    sys.exit('Usage: %s "keychain service" "username" "server" "port" "remote path" "file 1" "file 2" … "file n"' % sys.argv[0])
     
 params = sys.argv[1:]
 service = params.pop(0)
@@ -47,9 +55,10 @@ files = params
 password = keyring.get_password(service, account)
 if password == None:
     print("FTP Password not found.")
-    while password == None or len(password)==0:
-        password = str(raw_input("Please enter the password for service \""+service+"\" and account \""+account+"\": "))
-    keyring.set_password(service, account, password)
+    password = askPassword()
+    # while password == None or len(password)==0:
+    #     password = str(getpass.getpass("Please enter the password for service \""+service+"\" and account \""+account+"\": "))
+    # keyring.set_password(service, account, password)
     
 if password==None:
     sys.exit("Please create the password first or allow access for service: " + service + " account " + account)
@@ -57,7 +66,16 @@ if password==None:
 print "connect to server " +  server + " port " + port
 ftp = FTP()
 ftp.connect(server,port)
-ftp.login(account,password)
+
+try:
+    ftp.login(account,password)
+except:
+    print("Login error")
+    password = askPassword()
+    
+if password==None:
+    sys.exit("Please create the password first or allow access for service: " + service + " account " + account)
+    
 ftp.cwd('/')
 
 if path.endswith("/"):
