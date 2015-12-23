@@ -67,11 +67,14 @@ print "connect to server " +  server + " port " + port
 ftp = FTP()
 ftp.connect(server,port)
 
-try:
-    ftp.login(account,password)
-except:
-    print("Login error")
-    password = askPassword()
+loggedIn = False
+while not loggedIn:
+    try:
+        ftp.login(account,password)
+        loggedIn = True
+    except:
+        print("Login error")
+        password = askPassword()
     
 if password==None:
     sys.exit("Please create the password first or allow access for service: " + service + " account " + account)
