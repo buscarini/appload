@@ -16,7 +16,7 @@ Simple FTP upload with python with credentials in keychain. Overrides the files 
 
 ## Usage
 
-		appload "keychain service" "username" "server" "port" "remote path" "file 1" "file 2" … "file n"
+		appload.py "keychain service" "username" "server" "port" "remote path" "file 1" "file 2" … "file n"
 		
-**"keychain service"** is just the name or identifier you want to use for this service. You can put anything you want there (like ).
+**"keychain service"** is just the name or identifier you want to use for this service. You can put anything you want there (like "company_ftp").
 **"keychain account"** is the ftp username.
