@@ -11,7 +11,7 @@ setup(
     description='FTP upload',
     long_description=open('README.md').read(),
     zip_safe=False,
-    scripts = ['scripts/appload.py'],
+    scripts = ['scripts/appload'],
     install_requires = [
            'keyring'
      ]
